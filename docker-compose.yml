@@ -11,8 +11,10 @@ services:
     ports:
       - "3001:3001"
   frontend:
+    # env_file:
+    #     "./uploader-frontend/.env"
     build:
-      context: ./uploader
+      context: ./uploader-frontend
       dockerfile: ./Dockerfile
     image: "uploader-files-frontend-image-name"
     ports:
