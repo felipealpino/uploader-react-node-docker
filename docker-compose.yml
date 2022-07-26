@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  backend:
+    # env_file:
+    #     "./uploader-backend/.env"
+    build:
+      context: ./uploader-backend
+      dockerfile: ./Dockerfile
+    image: "uploader-files-backend-image-name"
+    ports:
+      - "3001:3001"
+  frontend:
+    build:
+      context: ./uploader
+      dockerfile: ./Dockerfile
+    image: "uploader-files-frontend-image-name"
+    ports:
+      - "3000:3000"
+    links:
+      - "backend"
+
+# https://www.bezkoder.com/docker-compose-react-nodejs-mysql/
+# https://github.com/dylane1999/SentimentAnalysisApp
