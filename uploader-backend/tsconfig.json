@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "preserveConstEnums": true,
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "allowJs": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "outDir": ".build",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "lib": ["es2015"],
+    "rootDir": "./",
+    "baseUrl": "./"
+  }
+}
