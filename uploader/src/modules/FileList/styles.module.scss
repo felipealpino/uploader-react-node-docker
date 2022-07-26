@@ -1,0 +1,80 @@
+.filesToUploadContainer {
+  background: var(--white);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  width: 23rem;
+  max-height: 200px;
+  overflow-y: auto;
+  gap: 1rem;
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+
+  .hide {
+    font-size: 0.8rem;
+    font-weight: 400;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    color: var(--danger-400);
+
+    &.all {
+      text-align: right;
+      position: relative;
+      top: -5px;
+    }
+  }
+
+  .imageContainer {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+    & + li {
+      margin-top: 1rem;
+    }
+
+    img {
+      width: 36px;
+      height: 36px;
+      border-radius: 5px;
+      margin-right: 10px;
+    }
+
+    .containerLeft {
+      display: flex;
+
+      > div {
+        margin: auto 0;
+
+        span {
+          font-size: 1rem;
+          font-weight: 500;
+        }
+
+        .fileName {
+          display: block;
+          color: var(--gray-800);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 165px;
+        }
+        .fileSize {
+          color: var(--gray-300);
+        }
+        .hide {
+          font-size: 0.8rem;
+          font-weight: 400;
+        }
+      }
+    }
+
+    .containerRight {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+    }
+  }
+}
