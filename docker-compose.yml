@@ -22,5 +22,7 @@ services:
     links:
       - "backend"
 
+# docker-compose up --build
+
 # https://www.bezkoder.com/docker-compose-react-nodejs-mysql/
 # https://github.com/dylane1999/SentimentAnalysisApp
