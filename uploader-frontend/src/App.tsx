@@ -4,7 +4,7 @@ import './styles/global.scss';
 import { axiosInstance } from './services/axios';
 import { IFile, useFiles } from './hooks/useFiles';
 import { FileList } from './modules/FileList';
-import { Uploader } from './modules/Uploader/index.';
+import { Uploader } from './shared/Uploader/index.';
 import { UploaderContainer } from './modules/UploaderContainer';
 import { buildFileFormatStructure } from './utils/buildFileFormatStructure';
 
@@ -53,6 +53,7 @@ export function App() {
         const indexFound = oldState.findIndex(state => state.id === firstQueueElement.id);
         const auxState = [...oldState];
         oldState[indexFound].canUpload = false;
+        oldState[indexFound].errorMessage = 'Upload error';
         return auxState;
       });
     }

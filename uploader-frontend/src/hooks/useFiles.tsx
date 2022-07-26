@@ -1,10 +1,11 @@
 import React, { createContext, ReactNode, useContext, useState } from 'react';
 export interface IFile {
   id: string;
-  canUpload: boolean;
   file: File;
   uploadStatus?: 'waiting' | 'uploading' | 'uploaded';
   uploadProgress: number;
+  canUpload: boolean;
+  errorMessage?: string;
 }
 
 export type IFileContextData = {

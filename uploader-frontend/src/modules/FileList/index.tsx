@@ -7,6 +7,7 @@ import filesize from 'filesize';
 import styles from './styles.module.scss';
 
 import { IFile, useFiles } from '../../hooks/useFiles';
+import { Tooltip } from '../../shared/Tooltip';
 
 const FileList: React.FC = () => {
   const { files, setFiles } = useFiles();
@@ -67,7 +68,11 @@ const FileList: React.FC = () => {
 
             {f.canUpload && f.uploadStatus === 'uploaded' && <MdCheckCircle size={24} color="#78e5d5" />}
 
-            {!f.canUpload && <MdError size={24} color="#e57878" />}
+            {!f.canUpload && f.errorMessage && (
+              <Tooltip text={f.errorMessage}>
+                <MdError size={24} color="#e57878" />
+              </Tooltip>
+            )}
           </div>
         </li>
       ))}

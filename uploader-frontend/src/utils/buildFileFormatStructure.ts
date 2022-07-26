@@ -7,9 +7,11 @@ export const buildFileFormatStructure = (files: FileList) => {
     const isFileTypeValid = validFileTypes.includes(f.type);
     const isFileSizeValid = f.size < 2 * 1024 * 2024; // 2MB
 
-    const fileFormat = { file: f, canUpload: true, id: uniqid(), uploadStatus: 'waiting', uploadProgress: 0 };
+    const fileFormat = { file: f, id: uniqid(), uploadStatus: 'waiting', uploadProgress: 0 };
 
-    if (!isFileTypeValid || !isFileSizeValid) return { ...fileFormat, canUpload: false };
+    if (!isFileSizeValid) return { ...fileFormat, canUpload: false, errorMessage: 'Invalid max size' };
+    if (!isFileTypeValid) return { ...fileFormat, canUpload: false, errorMessage: 'Invalid type size' };
+
     return { ...fileFormat, canUpload: true };
   }) as IFile[];
 };
