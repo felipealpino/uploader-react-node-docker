@@ -10,7 +10,7 @@ export const buildFileFormatStructure = (files: FileList) => {
     const fileFormat = { file: f, id: uniqid(), uploadStatus: 'waiting', uploadProgress: 0 };
 
     if (!isFileSizeValid) return { ...fileFormat, canUpload: false, errorMessage: 'Invalid max size' };
-    if (!isFileTypeValid) return { ...fileFormat, canUpload: false, errorMessage: 'Invalid type size' };
+    if (!isFileTypeValid) return { ...fileFormat, canUpload: false, errorMessage: 'Invalid file format' };
 
     return { ...fileFormat, canUpload: true };
   }) as IFile[];
