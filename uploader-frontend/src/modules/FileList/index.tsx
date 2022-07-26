@@ -22,17 +22,21 @@ const FileList: React.FC = () => {
 
   const hideAllFilesUploaded = useCallback(() => {
     setFiles((oldState: IFile[]) => {
-      return oldState.flatMap(os => (os.uploadStatus === 'uploaded' ? [] : os));
+      return oldState.flatMap(os => {
+        const isAlreadyUploaded = os.uploadStatus === 'uploaded';
+        const isAbleToUpload = os.canUpload;
+        return isAlreadyUploaded || !isAbleToUpload ? [] : os;
+      });
     });
   }, [setFiles]);
 
-  const containsUploadedFiles = useMemo(() => {
-    return !!files.find(f => f.uploadStatus === 'uploaded');
+  const canHideFiles = useMemo(() => {
+    return !!files.find(f => f.uploadStatus === 'uploaded' || f.canUpload === false);
   }, [files]);
 
   return (
     <div className={styles.filesToUploadContainer}>
-      {containsUploadedFiles && (
+      {canHideFiles && (
         <div className={`${styles.hide} ${styles.all}`} onClick={hideAllFilesUploaded}>
           Hide uploaded files
         </div>
