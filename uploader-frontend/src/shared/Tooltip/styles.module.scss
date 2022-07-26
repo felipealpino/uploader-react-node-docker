@@ -1,0 +1,17 @@
+.tooltip-container {
+  position: relative;
+  font-size: 10px;
+  width: fit-content;
+}
+
+.tooltip-box {
+  position: fixed;
+  font-size: 14px;
+  background: var(--danger-400);
+  color: var(--white);
+  padding: 5px;
+  border-radius: 5px;
+  z-index: 4;
+  transform: translate(-70%, -100%);
+  width: 100px;
+}
