@@ -18,7 +18,6 @@ const Tooltip: React.FC<ITooltip> = ({ text, children }) => {
     tooltipBoxStyles.current = { ...tooltipBoxStyles.current, left: event.clientX };
   }, []);
 
-  console.log(tooltipBoxStyles.current);
   return (
     <div className={`${styles['tooltip-container']}`}>
       <div style={{ ...tooltipBoxStyles.current, display: boxDisplay }} className={`${styles['tooltip-box']}`}>
