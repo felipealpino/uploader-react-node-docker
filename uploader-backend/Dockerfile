@@ -1,6 +1,11 @@
-FROM node:16-alpine as backdev
-ENV NODE_ENV=development
-WORKDIR /api/
+FROM node:16-alpine
+
+WORKDIR /usr/src/app/uploader-backend/
+
 COPY . .
+
 RUN yarn
-CMD [ "yarn", "dev" ]
+
+EXPOSE 3001
+
+CMD ["yarn", "dev"]

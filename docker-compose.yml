@@ -1,21 +1,23 @@
 version: '3'
-
 services:
-  backend:
+  nodejs-server:
     build:
       context: ./uploader-backend
       dockerfile: ./Dockerfile
-    image: 'back-dev-image-name'
     ports:
-      - '3001:3001'
-  frontend:
+      - "3001:3001"
+    container_name: node-uploader-backend-dev
+    volumes:
+       - ./uploader-backend:/usr/src/app/uploader-backend
+       - /usr/src/app/uploader-backend/node_modules
+  react-ui:
     build:
       context: ./uploader-frontend
       dockerfile: ./Dockerfile
-    image: 'front-dev-image-name'
-    depends_on:
-      - backend
     ports:
-      - '3000:3000'
-    links:
-      - 'backend'
+      - "3000:3000"
+    container_name: react-ui-dev
+    stdin_open: true
+    volumes:
+       - ./uploader-frontend:/usr/src/app/uploader-frontend
+       - /usr/src/app/uploader-frontend/node_modules

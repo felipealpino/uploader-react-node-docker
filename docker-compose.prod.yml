@@ -1,22 +1,19 @@
+# https://medium.com/bb-tutorials-and-thoughts/react-local-development-with-docker-compose-5a247710f997
 version: '3'
 
 services:
   backend:
-    # environment:
-    #   - NODE_ENV=development
     build:
       context: ./uploader-backend
       dockerfile: ./Dockerfile.prod
-    image: 'back-prod-image-name'
+    container_name: node-uploader-backend-prod
     ports:
       - '3001:3001'
   frontend:
-    # env_file:
-    #     "./uploader-frontend/.env"
     build:
       context: ./uploader-frontend
       dockerfile: ./Dockerfile.prod
-    image: 'front-prod-image-name'
+    container_name: react-ui-prod
     depends_on:
       - backend
     ports:
