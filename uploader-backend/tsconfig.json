@@ -7,7 +7,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
-    "outDir": ".build",
+    "outDir": "build",
     "module": "commonjs",
     "resolveJsonModule": true,
     "esModuleInterop": true,

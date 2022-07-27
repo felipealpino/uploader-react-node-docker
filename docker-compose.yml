@@ -2,27 +2,24 @@ version: '3'
 
 services:
   backend:
-    # env_file:
-    #     "./uploader-backend/.env"
+    # environment:
+    #   - NODE_ENV=development
     build:
       context: ./uploader-backend
       dockerfile: ./Dockerfile
-    image: "uploader-files-backend-image-name"
+    image: 'uploader-files-backend-image-name'
     ports:
-      - "3001:3001"
+      - '3001:3001'
   frontend:
     # env_file:
     #     "./uploader-frontend/.env"
     build:
       context: ./uploader-frontend
       dockerfile: ./Dockerfile
-    image: "uploader-files-frontend-image-name"
+    image: 'uploader-files-frontend-image-name'
+    depends_on:
+      - backend
     ports:
-      - "3000:3000"
+      - '3000:3000'
     links:
-      - "backend"
-
-# docker-compose up --build
-
-# https://www.bezkoder.com/docker-compose-react-nodejs-mysql/
-# https://github.com/dylane1999/SentimentAnalysisApp
+      - 'backend'

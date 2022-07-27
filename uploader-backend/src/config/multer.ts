@@ -1,7 +1,6 @@
-import multer, { FileFilterCallback } from 'multer';
+import multer from 'multer';
 import path from 'path';
 import crypto from 'crypto';
-import { Request } from 'express';
 
 const multerConfiguration = {
   dest: path.resolve(__dirname, '..', '..', 'tmp', 'uploads'),
@@ -21,7 +20,7 @@ const multerConfiguration = {
     fileSize: 2 * 1024 * 1024, // 2MB
     // fileSize: 512, // fail test
   },
-  fileFilter: (request: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
+  fileFilter: (request, file, cb) => {
     const allowedMimes = ['image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'];
     // const allowedMimes = ['image/jpeg', 'image/pjpeg', 'image/png'];
     if (allowedMimes.includes(file.mimetype)) {
