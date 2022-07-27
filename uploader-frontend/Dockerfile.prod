@@ -4,5 +4,5 @@ WORKDIR /uploader/
 COPY . .
 RUN npm install --location=global serve
 RUN yarn
-# RUN yarn build
-# CMD [ "serve", "-s" , "build" ]
+RUN yarn build
+CMD [ "serve", "-s" , "build" ]
