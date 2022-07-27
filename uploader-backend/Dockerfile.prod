@@ -1,0 +1,9 @@
+FROM node:16-alpine as backprod
+ENV NODE_ENV=production
+WORKDIR /api/
+COPY . .
+RUN yarn
+RUN yarn build
+RUN mkdir -p ./build/tmp
+RUN mkdir -p ./build/tmp/uploads
+CMD [ "yarn", "start" ]

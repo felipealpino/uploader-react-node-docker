@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  backend:
+    # environment:
+    #   - NODE_ENV=development
+    build:
+      context: ./uploader-backend
+      dockerfile: ./Dockerfile.prod
+    image: 'back-prod-image-name'
+    ports:
+      - '3001:3001'
+  frontend:
+    # env_file:
+    #     "./uploader-frontend/.env"
+    build:
+      context: ./uploader-frontend
+      dockerfile: ./Dockerfile.prod
+    image: 'front-prod-image-name'
+    depends_on:
+      - backend
+    ports:
+      - '3000:3000'
+    links:
+      - 'backend'

@@ -2,21 +2,17 @@ version: '3'
 
 services:
   backend:
-    # environment:
-    #   - NODE_ENV=development
     build:
       context: ./uploader-backend
       dockerfile: ./Dockerfile
-    image: 'uploader-files-backend-image-name'
+    image: 'back-dev-image-name'
     ports:
       - '3001:3001'
   frontend:
-    # env_file:
-    #     "./uploader-frontend/.env"
     build:
       context: ./uploader-frontend
       dockerfile: ./Dockerfile
-    image: 'uploader-files-frontend-image-name'
+    image: 'front-dev-image-name'
     depends_on:
       - backend
     ports:
