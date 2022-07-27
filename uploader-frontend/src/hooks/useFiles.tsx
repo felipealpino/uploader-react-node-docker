@@ -2,7 +2,7 @@ import React, { createContext, ReactNode, useContext, useState } from 'react';
 export interface IFile {
   id: string;
   file: File;
-  uploadStatus?: 'waiting' | 'uploading' | 'uploaded';
+  uploadStatus?: 'waiting' | 'uploading' | 'uploaded' | 'failed';
   uploadProgress: number;
   canUpload: boolean;
   errorMessage?: string;

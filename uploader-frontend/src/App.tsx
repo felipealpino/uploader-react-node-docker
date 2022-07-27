@@ -1,12 +1,13 @@
 import { useCallback, useRef } from 'react';
 import './styles/global.scss';
 
-import { axiosInstance } from './services/axios';
+import { api } from './services/axios';
 import { IFile, useFiles } from './hooks/useFiles';
 import { FileList } from './modules/FileList';
 import { Uploader } from './shared/Uploader/index.';
 import { UploaderContainer } from './modules/UploaderContainer';
 import { buildFileFormatStructure } from './utils/buildFileFormatStructure';
+import { FILE_TYPES_EXTENSIONS } from './utils/fileTypesConstraints';
 
 export function App() {
   const { files, setFiles } = useFiles();
@@ -15,7 +16,7 @@ export function App() {
   const uploadService = useCallback(
     async (file: IFile) => {
       try {
-        await axiosInstance.post('/upload_file', file, {
+        await api.post('/upload_file', file, {
           headers: { 'Content-Type': 'multipart/form-data' },
           onUploadProgress: data => {
             setFiles((oldState: IFile[]) => {
@@ -48,20 +49,12 @@ export function App() {
 
     const res = await uploadService(firstQueueElement);
 
-    if (!res) {
-      setFiles((oldState: IFile[]) => {
-        const indexFound = oldState.findIndex(state => state.id === firstQueueElement.id);
-        const auxState = [...oldState];
-        oldState[indexFound].canUpload = false;
-        oldState[indexFound].errorMessage = 'Upload error';
-        return auxState;
-      });
-    }
-
     setFiles((oldState: IFile[]) => {
       const indexFound = oldState.findIndex(state => state.id === firstQueueElement.id);
       const auxState = [...oldState];
-      oldState[indexFound].uploadStatus = 'uploaded';
+      oldState[indexFound].canUpload = res;
+      oldState[indexFound].uploadStatus = res ? 'uploaded' : 'failed';
+      oldState[indexFound].errorMessage = res ? undefined : 'Upload error';
       return auxState;
     });
 
@@ -72,11 +65,10 @@ export function App() {
   const handleUploadFiles = useCallback(
     async (files: FileList) => {
       const newFiles = buildFileFormatStructure(files);
-      setFiles((oldState: IFile[]) => [...oldState, ...newFiles]);
-      
-      
+      setFiles((oldState: IFile[]) => [...newFiles, ...oldState]);
+
       const validQueueFiles = newFiles.flatMap(nf => (nf.canUpload ? nf : []));
-      
+
       if (queue.current.length > 0) {
         queue.current = [...queue.current, ...validQueueFiles];
         return;
@@ -90,7 +82,11 @@ export function App() {
 
   return (
     <UploaderContainer>
-      <Uploader handleUploadCallback={files => handleUploadFiles(files)} />
+      <Uploader
+        handleUploadCallback={files => handleUploadFiles(files)}
+        validTypes={FILE_TYPES_EXTENSIONS}
+        maxSize="2MB"
+      />
       {!!files.length && <FileList />}
     </UploaderContainer>
   );

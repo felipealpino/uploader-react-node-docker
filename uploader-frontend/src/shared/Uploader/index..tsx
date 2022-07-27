@@ -1,29 +1,27 @@
-import React, { useCallback, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 
 import styles from './styles.module.scss';
 
 interface IUploader {
   handleUploadCallback: (files: FileList) => void;
+  validTypes?: string[];
+  maxSize?: string;
 }
 
-const Uploader: React.FC<IUploader> = ({ handleUploadCallback }) => {
+const Uploader: React.FC<IUploader> = memo(({ handleUploadCallback, maxSize, validTypes }) => {
   const [dragActive, setDragActive] = useState<boolean>(true);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   // triggers when file is selected with click
-  const onButtonClick = useCallback(() => {
+  const onButtonClick = () => {
     inputRef.current?.click();
-  }, []);
+  };
 
-  const handleDrag = useCallback((event: React.DragEvent<HTMLDivElement>) => {
+  const handleDrag = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     event.stopPropagation();
-    if (event.type === 'dragenter' || event.type === 'dragover') {
-      setDragActive(true);
-    } else if (event.type === 'dragleave') {
-      setDragActive(false);
-    }
-  }, []);
+    setDragActive(event.type === 'dragenter' || event.type === 'dragover');
+  };
 
   // triggers when file is dropped
   const handleDrop = useCallback(
@@ -68,8 +66,8 @@ const Uploader: React.FC<IUploader> = ({ handleUploadCallback }) => {
             <button className={styles.uploadButton} onClick={onButtonClick}>
               Upload a file
             </button>
-            <p>Valid formats: .jpeg, .pjpeg .png .gif</p>
-            <p>Max Size: 2MB</p>
+            {validTypes && <p>Valid formats: {validTypes.map(type => type + ' ')}</p>}
+            {maxSize && <p>Max Size: {maxSize}</p>}
           </div>
         </label>
 
@@ -85,6 +83,6 @@ const Uploader: React.FC<IUploader> = ({ handleUploadCallback }) => {
       </div>
     </div>
   );
-};
+});
 
 export { Uploader };

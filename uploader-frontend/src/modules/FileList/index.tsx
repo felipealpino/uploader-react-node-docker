@@ -52,7 +52,7 @@ const FileList: React.FC = () => {
               <span className={styles.fileSize}>{filesize(f.file.size)}</span>
               {(f.uploadStatus === 'uploaded' || !f.canUpload) && (
                 <span className={styles.hide} onClick={() => removeFile(f.id)}>
-                  Ocultar
+                  Hide
                 </span>
               )}
             </div>
